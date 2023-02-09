@@ -1,7 +1,7 @@
-from .entry import AnnualEnergyUseEntryPoint
+from .entry import AppendixGPerformanceEntryPoint
 
 
 __pollination__ = {
-    'entry_point': AnnualEnergyUseEntryPoint,
-    'app_version': '3.1.0',  # tag for version of Openstudio
+    'entry_point': AppendixGPerformanceEntryPoint,
+    'app_version': '3.5.0',  # tag for version of Openstudio
 }
