@@ -145,6 +145,17 @@ class AppendixGPerformanceEntryPoint(DAG):
         alias=bldg_lighting_input
     )
 
+    proposed_efficiency_standard = Inputs.str(
+        description='Text to set the efficiency standard to be used for the proposed '
+        'building. When specified, this will automatically override the efficiencies '
+        'of all HVAC equipment for the proposed standard. Note that providing a '
+        'standard here will cause the OpenStudio translation process to perform an '
+        'additional sizing calculation with EnergyPlus, which is needed since the '
+        'default efficiencies of equipment vary depending on their size. Choose from '
+        'the following: DOE_Ref_Pre_1980, DOE_Ref_1980_2004, ASHRAE_2004, ASHRAE_2007, '
+        'ASHRAE_2010, ASHRAE_2013, ASHRAE_2016, ASHRAE_2019', default='',
+    )
+
     # tasks
     @task(template=ModelToBaseline)
     def model_to_baseline(
@@ -159,7 +170,11 @@ class AppendixGPerformanceEntryPoint(DAG):
         ]
 
     @task(template=BaselineOrientationSimPars)
-    def create_sim_par(self, ddy=ddy, north=north) -> List[Dict]:
+    def create_sim_par(
+        self, ddy=ddy, north=north, reporting_frequency='Monthly',
+        climate_zone=climate_zone, building_type=building_type,
+        efficiency_standard='ASHRAE_2004'
+    ) -> List[Dict]:
         return [
             {
                 'from': BaselineOrientationSimPars()._outputs.output_folder,
@@ -172,7 +187,11 @@ class AppendixGPerformanceEntryPoint(DAG):
         ]
 
     @task(template=SimParDefault)
-    def create_proposed_sim_par(self, ddy=ddy, north=north) -> List[Dict]:
+    def create_proposed_sim_par(
+        self, ddy=ddy, north=north, reporting_frequency='Monthly',
+        climate_zone=climate_zone, building_type=building_type,
+        efficiency_standard=proposed_efficiency_standard
+    ) -> List[Dict]:
         return [
             {
                 'from': SimParDefault()._outputs.sim_par_json,
