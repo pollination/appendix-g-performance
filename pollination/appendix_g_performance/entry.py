@@ -15,6 +15,7 @@ from pollination.alias.inputs.baseline import climate_zone_input, \
     building_type_input, energy_costs_input
 from pollination.alias.inputs.emissions import electricity_emissions_input
 from pollination.alias.inputs.bool_options import bldg_lighting_input
+from pollination.alias.inputs.simulation import proposed_standard_input
 from pollination.alias.outputs.summary import parse_appendix_g_summary, \
     parse_leed_summary, load_baseline_sqls
 
@@ -96,9 +97,9 @@ class AppendixGPerformanceEntryPoint(DAG):
         'assumptions used to calculate the Performance Cost Index (PCI). Note that '
         'not all of the energy sources need to be specified for this input to be valid. '
         'For example, if the input model contains no district heating or cooling, '
-        'something like the following would be acceptable: --electricity-cost 0.24 '
-        '--natural-gas-cost 0.08',
-        default='--electricity-cost 0.15 --natural-gas-cost 0.06 '
+        'something like the following would be acceptable: --electricity-cost 0.20 '
+        '--natural-gas-cost 0.09',
+        default='--electricity-cost 0.12 --natural-gas-cost 0.06 '
         '--district-cooling-cost 0.04 --district-heating-cost 0.08',
         alias=energy_costs_input
     )
@@ -154,6 +155,7 @@ class AppendixGPerformanceEntryPoint(DAG):
         'default efficiencies of equipment vary depending on their size. Choose from '
         'the following: DOE_Ref_Pre_1980, DOE_Ref_1980_2004, ASHRAE_2004, ASHRAE_2007, '
         'ASHRAE_2010, ASHRAE_2013, ASHRAE_2016, ASHRAE_2019', default='',
+        alias=proposed_standard_input
     )
 
     # tasks
