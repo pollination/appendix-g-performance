@@ -11,7 +11,7 @@ energy conservation strategies like expanded comfort ranges, ceiling fans, and
 personal thermal comfort devices. It may also be necessary to adjust hot water
 loads loads in cases where low-flow fixtures are implemented.
 
-After the creation of the baseline model, his recipe will simulate it in
+After the creation of the baseline model, this recipe will simulate it in
 EnergyPlus, performing 4 separate simulations in parallel for each of the 4
 cardinal directions per the Appendix G specification. Alongside these baseline
 simulations, the input Model will be simulated to get the energy performance
