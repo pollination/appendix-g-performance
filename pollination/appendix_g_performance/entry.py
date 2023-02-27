@@ -8,7 +8,7 @@ from pollination.honeybee_energy.settings import SimParDefault, \
 from pollination.honeybee_energy.simulate import SimulateModel
 
 # input/output alias
-from pollination.alias.inputs.model import hbjson_model_input
+from pollination.alias.inputs.model import hbjson_model_hvac_input
 from pollination.alias.inputs.ddy import ddy_input
 from pollination.alias.inputs.north import north_input
 from pollination.alias.inputs.baseline import climate_zone_input, \
@@ -28,7 +28,7 @@ class AppendixGPerformanceEntryPoint(DAG):
     model = Inputs.file(
         description='An energy Model as either a HBJSON or HBPkl file.',
         extensions=['hbjson', 'json', 'hbpkl', 'pkl'],
-        alias=hbjson_model_input
+        alias=hbjson_model_hvac_input
     )
 
     epw = Inputs.file(
