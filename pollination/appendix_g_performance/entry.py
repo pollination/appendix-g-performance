@@ -101,7 +101,13 @@ class AppendixGPerformanceEntryPoint(DAG):
         '--natural-gas-cost 0.09',
         default='--electricity-cost 0.12 --natural-gas-cost 0.06 '
         '--district-cooling-cost 0.04 --district-heating-cost 0.08',
-        alias=energy_costs_input
+        alias=energy_costs_input,
+        spec={
+            'type': 'string',
+            'pattern': '(?:\s|^)(?:(--electricity-cost|--district-cooling-cost|' \
+                '--district-heating-cost|--natural-gas-cost)\s+([0-9]+\.[0-9]+))' \
+                '(?=(?:\s|$|\1))'
+        }
     )
 
     electricity_emissions = Inputs.float(
